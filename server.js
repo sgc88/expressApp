@@ -22,6 +22,18 @@ app.get('/todos', function(req, res){
 ///// API ENDPOINTS /////
 
 
+//GET ROUTES FOR ALL DOTOS
+
+app.get('/api/todos', function(req, res){
+  db.Todo.find({}, function(error, todos){
+    if(error){
+      console.log(error);
+    }else{
+      res.json(todos);
+    }
+  });
+});
+
 
 
 

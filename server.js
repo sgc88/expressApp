@@ -10,9 +10,20 @@ app.use(express.static('public'));
 
 app.use(bodyParser.urlencoded({extended: true}));
 
+///// HTML ENDPOINTS /////
+
 app.get('/', function(req, res){
   res.sendFile('views/index.html', {root: __dirname}); // bu sekilde html endpint kullanmis oluyoruz
 });
+
+app.get('/todos', function(req, res){
+  res.sendFile('views/allTodos.html', {root:__dirname});
+});
+///// API ENDPOINTS /////
+
+
+
+
 
 app.listen(3000, function(){
   console.log('listening to 3000..')

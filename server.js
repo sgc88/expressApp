@@ -19,6 +19,10 @@ app.get('/', function(req, res){
 app.get('/todos', function(req, res){
   res.sendFile('views/allTodos.html', {root:__dirname});
 });
+
+app.get('/createTodo', function(req, res){
+  res.sendFile('views/createTodo.html',{root:__dirname});
+});
 ///// API ENDPOINTS /////
 
 
@@ -30,6 +34,27 @@ app.get('/api/todos', function(req, res){
       console.log(error);
     }else{
       res.json(todos);
+    }
+  });
+});
+
+app.post('/api/createTodo', function(req, res){
+  console.log(req.body);
+  var auth=req.body.author;
+  var desc = req.body.description;
+  var diff = req.body.difficultyLevel;
+
+  var newTodo =new db.Todo({
+      author:auth,
+      description:desc,
+      difficultyLevel:diff
+  });
+
+  newTodo.save(function(error, savedTodo){
+    if(error){
+      console.log(error);
+    }else{
+      res.json(savedTodo);
     }
   });
 });

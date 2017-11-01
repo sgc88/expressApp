@@ -11,7 +11,16 @@ $(document).ready(function(){
     success: onSuccess,
     error: onError
   });
+
+  $("#todoTarget").on("click", ".todo",function(e){
+    var id = $(this).closest(".todo").data("todo-id");
+    console.log(id);
+    window.location.href = "/todos/" +id;
+  });
+
 });
+
+
 
 function onSuccess(todos){
   allTodos = todos;
@@ -37,7 +46,7 @@ function getAllTodosHtml(items){
 function getTodoHtml(item){
   return `
     <hr>
-    <p>
+    <p class="todo" data-todo-id="${item._id}">
       <b>${item.description}</b>
       by ${item.author}
       (<i>Difficulty Level: ${item.difficultyLevel}</i>)

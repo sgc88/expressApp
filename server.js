@@ -16,6 +16,10 @@ app.get('/', function(req, res){
   res.sendFile('views/index.html', {root: __dirname}); // bu sekilde html endpint kullanmis oluyoruz
 });
 
+app.get('/todos/:id', function(req, res){
+  res.sendFile('views/todo.html', {root : __dirname});
+});
+
 app.get('/todos', function(req, res){
   res.sendFile('views/allTodos.html', {root:__dirname});
 });
@@ -37,6 +41,19 @@ app.get('/api/todos', function(req, res){
     }
   });
 });
+
+//only one todo
+app.get('/api/todos/:id', function(req,res){
+  db.Todo.findById({_id:req.params.id}, function(err, result){
+    if(err){
+      console.log(err);
+    }else{
+      console.log(result);
+      res.json(result);
+    }
+  });
+});
+
 
 app.post('/api/createTodo', function(req, res){
   console.log(req.body);

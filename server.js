@@ -54,6 +54,15 @@ app.get('/api/todos/:id', function(req,res){
   });
 });
 
+app.delete('/api/todos/:id', function(req, res){
+  db.Todo.findOneAndRemove({_id:req.params.id}, function(err, result){
+    if(err){
+      console.log(err);
+    }else{
+      res.json(result);
+    }
+  });
+});
 
 app.post('/api/createTodo', function(req, res){
   console.log(req.body);

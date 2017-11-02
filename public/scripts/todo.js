@@ -10,18 +10,40 @@ $(document).ready(function(){
     success: onSuccess,
     error: onError
   });
+
+  $("#todoTarget").on("click", ".delete-todo", function(event){
+    console.log("clicked me");
+    $.ajax({
+      method: "DELETE",
+      url: url,
+      data: id,
+      success: deleteSuccess,
+      error: deleteError
+    });
+  });
 });
 
 function onSuccess(json){
   console.log(json);
   var output = `
+  <div>
     <p><strong>author: </strong> ${json.author}</p>
     <p><strong>description: </strong>${json.description}</p>
     <p><strong>difficulty: </strong>${json.difficultyLevel}</p>
+    <button class="btn btn-warning delete-todo todo" data-id="${json._id}">Delete</button>
+  </div>
   `;
   $("#todoTarget").append(output);
 }
 
 function onError(error){
-  console.log(err);
+  console.log(error);
+}
+
+function deleteSuccess(json){
+  window.location.href ="/todos";
+}
+
+function deleteError(error){
+  console.log(error);
 }

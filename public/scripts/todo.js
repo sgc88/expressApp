@@ -21,6 +21,11 @@ $(document).ready(function(){
       error: deleteError
     });
   });
+$("#todoTarget").on("click", ".edit-todo", function(event){
+  console.log("testing edit button");
+  window.location.href="/todos/" + id + "/edit";
+});
+
 });
 
 function onSuccess(json){
@@ -31,6 +36,8 @@ function onSuccess(json){
     <p><strong>description: </strong>${json.description}</p>
     <p><strong>difficulty: </strong>${json.difficultyLevel}</p>
     <button class="btn btn-warning delete-todo todo" data-id="${json._id}">Delete</button>
+    <button class="btn btn-success edit-todo todo" data-id="${json._id}">Edit</button>
+
   </div>
   `;
   $("#todoTarget").append(output);
